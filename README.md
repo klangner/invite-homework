@@ -101,6 +101,16 @@ List topics
 curl -H "Content-Type: application/json" localhost:8080/invitation
 ```
 
+Confirm invitation
+```bash
+curl -H "Content-Type: application/json" -POST -d '' localhost:8080/invitation/1/confirm
+```
+
+Decline invitation
+```bash
+curl -H "Content-Type: application/json" -POST -d '' localhost:8080/invitation/1/decline
+```
+
 # Redistributing
 
 invite-homework source code is distributed under the Apache-2.0 license.

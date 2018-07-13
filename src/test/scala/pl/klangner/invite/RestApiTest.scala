@@ -12,31 +12,31 @@ class RestApiTest extends WordSpec with Matchers with ScalatestRouteTest {
     "The service" should {
 
       "list invitation" in {
-        // tests:
-        Get("/invitation") ~> Main.route ~> check {
+        val storage = new Storage()
+        Get("/invitation") ~> Main.route(storage) ~> check {
           status shouldEqual StatusCodes.OK
           responseAs[String] shouldEqual "[]"
         }
       }
 
       "Add new invitation" in {
-        // tests:
-        Post("/invitation") ~> Main.route ~> check {
+        val storage = new Storage()
+        Post("/invitation") ~> Main.route(storage) ~> check {
           status shouldEqual StatusCodes.Created
           responseAs[String] shouldEqual """{ "id":"1", "invitee": "John Smith", "email": "john@smith.mx" }"""
         }
       }
 
       "Confirm invitation" in {
-        // tests:
-        Post("/invitation/1/confirm") ~> Main.route ~> check {
+        val storage = new Storage()
+        Post("/invitation/1/confirm") ~> Main.route(storage) ~> check {
           status shouldEqual StatusCodes.OK
         }
       }
 
       "Decline invitation" in {
-        // tests:
-        Post("/invitation/1/decline") ~> Main.route ~> check {
+        val storage = new Storage()
+        Post("/invitation/1/decline") ~> Main.route(storage) ~> check {
           status shouldEqual StatusCodes.OK
         }
       }

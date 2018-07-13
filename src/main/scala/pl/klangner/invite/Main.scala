@@ -17,8 +17,10 @@ object Main {
   implicit val system: ActorSystem = ActorSystem("invitation-app")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
+  val storage = new Storage()
+
   /** Main route of the application */
-  val route: Route = {
+  def route(storage: Storage): Route = {
 
     path("invitation") {
       get {
@@ -43,7 +45,7 @@ object Main {
   def main(args: Array[String]) {
     Log.info("Server started")
 
-    Await.result(Http().bindAndHandle(route, "0.0.0.0", 8080), Duration.Inf)
+    Await.result(Http().bindAndHandle(route(storage), "0.0.0.0", 8080), Duration.Inf)
   }
 
 }

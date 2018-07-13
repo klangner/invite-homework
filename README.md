@@ -64,6 +64,12 @@ sbt assembly
 
 ## Running
 
+To run tests type:
+
+```bash
+sbt test
+```
+
 This application can bu run with the command:
 
 ```bash

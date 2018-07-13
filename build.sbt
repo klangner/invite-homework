@@ -9,8 +9,8 @@ scalaVersion := "2.12.6"
 resolvers += Resolver.sonatypeRepo("releases")
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-http" % "10.0.10",
-  "com.typesafe.akka" %% "akka-http-spray-json" % "10.0.10",
+  "com.typesafe.akka" %% "akka-http" % "10.1.3",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.3",
   "ch.qos.logback" % "logback-classic" % "1.2.3" % Runtime,
   // Log dependencies
   "org.slf4j" % "slf4j-api" % "1.7.25",
@@ -18,7 +18,7 @@ libraryDependencies ++= Seq(
   // Test dependencies
   "org.scalatest" %% "scalatest" % "3.0.5" % "test",
   "org.scalacheck" %% "scalacheck" % "1.13.4" % "test",
-  "com.typesafe.akka" %% "akka-http-testkit" % "10.0.7"
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.3"
 )
 
 assemblyMergeStrategy in assembly := {

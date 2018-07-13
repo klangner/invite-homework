@@ -3,6 +3,7 @@ package pl.klangner.invite
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import org.slf4j.LoggerFactory
 
@@ -17,7 +18,7 @@ object Main {
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   /** Main route of the application */
-  private val route = {
+  val route: Route = {
 
     path("invitation") {
       get {
@@ -26,6 +27,14 @@ object Main {
     } ~ path("invitation") {
       post {
         InviteApi.addInvitation()
+      }
+    } ~ path("invitation" / Segment / "confirm") { id =>
+      post {
+        InviteApi.confirm(id)
+      }
+    } ~ path("invitation" / Segment / "decline") { id =>
+      post {
+        InviteApi.decline(id)
       }
     }
   }

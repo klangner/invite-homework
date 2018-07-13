@@ -69,9 +69,35 @@ Content-Type: application/json;charset=utf-8
 
 
 ### 3) CONFIRM INVITATION
-Up to you
+
+Request:
+
+POST /invitation/confirm HTTP/1.1
+
+```json
+{ "invitee": "John Smith", "email": "john@smith.mx" }
+```
+
+Response:
+
+HTTP/1.1 200 OK
+
+Content-Type: application/json;charset=utf-8
 
 
 ### 4) DECLINE INVITATION
-Up to you
+
+Request:
+
+POST /invitation/decline HTTP/1.1
+
+```json
+{ "invitee": "John Smith", "email": "john@smith.mx" }
+```
+
+Response:
+
+HTTP/1.1 200 OK
+
+Content-Type: application/json;charset=utf-8
 

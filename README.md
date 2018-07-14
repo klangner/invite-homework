@@ -2,7 +2,7 @@
 
 ## API Specification
 
-Since initial specification can be changed here is slightly modified version which is implemented in this application:
+Since initial specification can be changed here is slightly modified version which is implemented in this application.
 
 ### 1) CREATE INVITATION
 
@@ -17,7 +17,12 @@ Since initial specification can be changed here is slightly modified version whi
 **Response**: HTTP/1.1 201 Created
 
 ```json
-{ "id":"1", "invitee": "John Smith", "email": "john@smith.mx" }
+{ "id":"1", "invitee": "John Smith", "email": "john@smith.mx", "status":"NotConfirmed" }
+```
+
+**Usage**
+```bash
+curl -H "Content-Type: application/json" -POST -d '{ "invitee": "John Smith", "email": "john@smith.mx" }' localhost:8080/invitation
 ```
 
 
@@ -31,8 +36,13 @@ Since initial specification can be changed here is slightly modified version whi
 
 ```json
 [
- { "id":"1", "invitee": "John Smith", "email": "john@smith.mx" }
+ { "id":"1", "invitee": "John Smith", "email": "john@smith.mx", "status":"NotConfirmed" }
 ]
+```
+
+**Usage**
+```bash
+curl -H "Content-Type: application/json" localhost:8080/invitation
 ```
 
 
@@ -44,6 +54,11 @@ Since initial specification can be changed here is slightly modified version whi
 
 **Response**: HTTP/1.1 200 OK
 
+**Usage**
+```bash
+curl -H "Content-Type: application/json" -POST -d '' localhost:8080/invitation/1/confirm
+```
+
 
 ### 4) DECLINE INVITATION
 
@@ -53,62 +68,33 @@ Since initial specification can be changed here is slightly modified version whi
 
 **Response**: HTTP/1.1 200 OK
 
-
-## Compiling
-
-To create fat jar:
-
+**Usage**
 ```bash
-sbt assembly
+curl -H "Content-Type: application/json" -POST -d '' localhost:8080/invitation/1/decline
 ```
+
 
 ## Running
 
-To run tests type:
-
+Run tests:
 ```bash
 sbt test
 ```
 
-This application can bu run with the command:
-
+Run with sbt
 ```bash
 sbt run
 ```
 
-This is the same as running:
-
+Or shell script
 ```bash
 ./run.sh
 ```
 
-Use fat jar. if the fat jar is created then:
-
+Create and execute fat jar:
 ```bash
+sbt assembly
 java -jar target/scala-2.12/invite-homework.jar
-```
-
-
-## Usage
-
-Add topic
-```bash
-curl -H "Content-Type: application/json" -POST -d '{ "invitee": "John Smith", "email": "john@smith.mx" }' localhost:8080/invitation
-```
-
-List topics
-```bash
-curl -H "Content-Type: application/json" localhost:8080/invitation
-```
-
-Confirm invitation
-```bash
-curl -H "Content-Type: application/json" -POST -d '' localhost:8080/invitation/1/confirm
-```
-
-Decline invitation
-```bash
-curl -H "Content-Type: application/json" -POST -d '' localhost:8080/invitation/1/decline
 ```
 
 # Redistributing

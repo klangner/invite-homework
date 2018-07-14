@@ -16,7 +16,7 @@ class InviteApi(storage: Storage) {
   /** List all invitations */
   def listInvitations(): StandardRoute = {
     Log.info("List invitations")
-    val invitations = Seq[Invitation]()
+    val invitations = storage.invitations()
     complete(HttpResponse(
       StatusCodes.OK,
       entity = HttpEntity(MediaTypes.`application/json`, invitations.toJson.compactPrint)
@@ -26,11 +26,8 @@ class InviteApi(storage: Storage) {
   /** Add invitation to the database and send email to the invited person */
   def addInvitation(params: InvitationParams): StandardRoute = {
     Log.info("Add invitation")
-
     val invitation = storage.addInvitation(params.invitee, params.email)
-
     EmailService.sendInvitation(invitation.invitee, invitation.email, invitation.id)
-
     complete(HttpResponse(
       StatusCodes.Created,
       entity = HttpEntity(MediaTypes.`application/json`, invitation.toJson.compactPrint)
@@ -40,15 +37,19 @@ class InviteApi(storage: Storage) {
   /** Confirm invitation with the given id */
   def confirm(id: String): StandardRoute = {
     Log.info("Confirm invitation")
-
-    complete(HttpResponse(StatusCodes.OK, entity = s"""{ "id":"$id", "invitee": "John Smith", "email": "john@smith.mx" }"""))
+    storage.confirm(id) match {
+      case Left(_) => complete(StatusCodes.NotFound)
+      case Right(_) => complete(StatusCodes.OK)
+    }
   }
 
   /** Decline invitation with the given id */
   def decline(id: String): StandardRoute = {
     Log.info("Decline invitation")
-
-    complete(HttpResponse(StatusCodes.OK, entity = """{ "id":"$id", "invitee": "John Smith", "email": "john@smith.mx" }"""))
+    storage.decline(id) match {
+      case Left(_) => complete(StatusCodes.NotFound)
+      case Right(_) => complete(StatusCodes.OK)
+    }
   }
 
 }

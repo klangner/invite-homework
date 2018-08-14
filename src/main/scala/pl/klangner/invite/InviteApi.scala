@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.{HttpEntity, HttpResponse, MediaTypes, StatusCod
 import akka.http.scaladsl.server.Directives.complete
 import akka.http.scaladsl.server.StandardRoute
 import org.slf4j.LoggerFactory
-import pl.klangner.invite.Models.{Invitation, InvitationParams}
+import pl.klangner.invite.Models.InvitationParams
 import pl.klangner.invite.ModelsJsonProtocol._
 import spray.json._
 
